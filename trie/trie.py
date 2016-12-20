@@ -1,8 +1,7 @@
 """
-Basic prefix tree with only insert, search and search for prefix operations.
+Trie/prefix tree with search, insert, and return all words with prefix
+operations.
 
-TODO:
-    -return all words with certain prefix
 """
 
 import unittest
@@ -60,6 +59,20 @@ class Trie():
             return self._search_prefix(vertex.edges[c], prefix[1:])
 
 
+    def words_with_prefix(self, prefix):
+        return self._words_with_prefix(self.root, prefix)
+
+
+    def _words_with_prefix(self, vertex, prefix):
+        if not prefix:
+            return self._collect_words(vertex)
+        c = ord(prefix[0]) - ord('a')
+        if not vertex.edges[c]:
+            return []
+        else:
+            return self._words_with_prefix(vertex.edges[c], prefix[1:])
+
+
     def _collect_words(self, vertex):
         words = []
         visited = []
@@ -113,6 +126,17 @@ class TestTrie(unittest.TestCase):
                          self.t._collect_words(b_vertex).sort())
         self.assertEqual(["foobar", "foo"].sort(),
                          self.t._collect_words(f_vertex).sort())
+
+
+    def test_words_with_prefix(self):
+        self.assertEqual(["bar", "baz"].sort(),
+                         self.t.words_with_prefix("b").sort())
+        self.assertEqual(["foobar", "foo"].sort(),
+                         self.t.words_with_prefix("f").sort())
+        self.assertEqual(["foobar", "foo"].sort(),
+                         self.t.words_with_prefix("foo").sort())
+        self.assertEqual([], self.t.words_with_prefix("q"))
+
 
 
 if __name__ == '__main__':
