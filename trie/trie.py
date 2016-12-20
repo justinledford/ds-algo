@@ -74,6 +74,10 @@ class Trie():
 
 
     def _collect_words(self, vertex):
+        """
+        DFS to collect all words starting from vertex.
+        Used by words_with_prefix.
+        """
         words = []
         visited = []
         stack = []
