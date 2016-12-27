@@ -19,14 +19,11 @@ def rabin_karp_find(s, t):
     ht = hash(t, b)
     hs = hash(s[0:m], b)
 
-    if hs == ht and s[0:m] == t:
-        return 0
-
-    for i in range(1, n-m+1):
-        # rehash
-        hs = b*(hs - b**(m-1)*ord(s[i-1])) + ord(s[i+m-1])
+    for i in range(0, n-m+1):
         if hs == ht and s[i:i+m] == t:
             return i
+        if i < n-m:
+            hs = b*(hs - b**(m-1)*ord(s[i])) + ord(s[i+m])
 
     return -1
 
