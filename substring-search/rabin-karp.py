@@ -1,3 +1,11 @@
+"""
+Rabin-Karp substring search, returns the index of the substring t
+in s, or -1 if substring is not found.
+
+Uses a rolling hash to compare strings, with time complexity
+of O(n+m), compared to the naive substring search's O(nm).
+"""
+
 import unittest
 
 def hash(s, b):
@@ -15,6 +23,7 @@ def rabin_karp_find(s, t):
         return 0
 
     for i in range(1, n-m+1):
+        # rehash
         hs = b*(hs - b**(m-1)*ord(s[i-1])) + ord(s[i+m-1])
         if hs == ht and s[i:i+m] == t:
             return i
@@ -32,4 +41,3 @@ class TestFind(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    #rabin_karp_find("abcd", "bcd")
