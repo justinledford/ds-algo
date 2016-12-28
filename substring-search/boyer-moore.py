@@ -2,14 +2,8 @@
 Boyer-Moore substring search, returns the index of the substring t
 in s, or -1 if substring is not found.
 
-This is a somewhat simplified version of the Boyer-Moore string
-search. The last character of the pattern is compared against
-the last character in the substrings, and continues comparing to
-the left until the pattern is found or there is a character mismatch.
-If there is a character mismatch then the window is shifted
-to the right; if the character mismatched, c,  is in the pattern
-then the pattern is aligned with c on at its rightmost index, otherwise
-the window is shifted just past the edge of the previous window.
+This is a very basic version of the Boyer-Moore string
+search, using only the bad character heuristic.
 """
 
 import unittest
