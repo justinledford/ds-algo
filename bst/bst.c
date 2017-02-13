@@ -138,7 +138,6 @@ void _bst_print(struct bst_node* root)
     if (root->right) _bst_print(root->right);
 }
 
-
 void bst_print(struct bst *tree)
 {
     if (tree->root)
@@ -150,8 +149,10 @@ void _bst_free(struct bst_node *root)
 {
     if (!root) return;
 
-    if (!root->left && !root->right)
+    if (!root->left && !root->right) {
         free(root);
+        return;
+    }
 
     _bst_free(root->left);
     _bst_free(root->right);
