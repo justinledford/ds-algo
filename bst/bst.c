@@ -24,7 +24,7 @@ void _bst_insert(struct bst_node* root, int key)
 {
     struct bst_node **p;
 
-    if (root == NULL) return;
+    if (!root) return;
     p = (key < root->key) ? &root->left : &root->right;
 
     if (*p)
@@ -47,7 +47,7 @@ int _bst_contains(struct bst_node *root, int key)
 {
     struct bst_node **p;
 
-    if (root == NULL) return 0;
+    if (!root) return 0;
     if (key == root->key) return 1;
 
     p = (key < root->key) ? &root->left : &root->right;
@@ -63,7 +63,7 @@ int bst_contains(struct bst *tree, int key)
 
 struct bst_node** _bst_scsr(struct bst_node** node)
 {
-    while ((*node)->left != NULL)
+    while ((*node)->left)
         node = &(*node)->left;
     return node;
 }
@@ -78,7 +78,7 @@ void _bst_delete(struct bst_node **node)
     /* Case 1: No children
      * Just delete
      */
-    if ((*node)->left == NULL && (*node)->right == NULL) {
+    if (!(*node)->left && !(*node)->right) {
         tmp = *node;
         *node = NULL;
         free(tmp);
@@ -112,7 +112,7 @@ struct bst_node **_bst_find(struct bst_node **node, int key)
 {
     struct bst_node **p;
 
-    if (*node == NULL) return NULL;
+    if (!*node) return NULL;
     if (key == (*node)->key) return node;
 
     p = (key < (*node)->key) ? &(*node)->left : &(*node)->right;
